@@ -20,6 +20,6 @@ namespace SPAL.Demo.Brokers
             this.client.DoSomething();
 
         private ISpal IntializeSpal() =>
-            this.client.UseXyz();
+            this.client.UseAbc();
     }
 }

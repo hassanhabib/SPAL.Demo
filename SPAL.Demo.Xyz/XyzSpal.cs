@@ -4,7 +4,7 @@ namespace SPAL.Demo.Xyz
 {
     public class XyzSpal : ISpal
     {
-        public void DoSomething<T>(T input) =>
+        public void DoSomething() =>
             Console.Write("Doing from Xyz");
     }
 }
