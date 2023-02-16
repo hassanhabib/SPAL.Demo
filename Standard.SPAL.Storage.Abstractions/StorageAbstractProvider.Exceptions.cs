@@ -1,5 +1,4 @@
 ﻿using Standard.SPAL.Storage.Abstractions.Models.Exceptions;
-using Xeptions;
 
 namespace Standard.SPAL.Storage.Abstractions
 {
@@ -15,17 +14,13 @@ namespace Standard.SPAL.Storage.Abstractions
             {
                 return await returningObjectFunction();
             }
-            catch (Xeption ex) when (ex.GetType().IsSubclassOf(typeof(ProviderValidationException)))
+            catch (Exception ex)
+                when (
+                    ex is ProviderValidationException
+                    || ex is ProviderDependencyValidationException
+                    || ex is ProviderDependencyException)
             {
-                throw new ProviderValidationException(ex);
-            }
-            catch (Xeption ex) when (ex.GetType().IsSubclassOf(typeof(ProviderDependencyValidationException)))
-            {
-                throw new ProviderDependencyValidationException(ex);
-            }
-            catch (Xeption ex) when (ex.GetType().IsSubclassOf(typeof(ProviderDependencyException)))
-            {
-                throw new ProviderDependencyException(ex);
+                throw;
             }
             catch (Exception ex)
             {
@@ -40,17 +35,13 @@ namespace Standard.SPAL.Storage.Abstractions
             {
                 return returningObjectsFunction();
             }
-            catch (Xeption ex) when (ex.GetType().IsSubclassOf(typeof(ProviderValidationException)))
+            catch (Exception ex)
+                when (
+                    ex is ProviderValidationException
+                    || ex is ProviderDependencyValidationException
+                    || ex is ProviderDependencyException)
             {
-                throw new ProviderValidationException(ex);
-            }
-            catch (Xeption ex) when (ex.GetType().IsSubclassOf(typeof(ProviderDependencyValidationException)))
-            {
-                throw new ProviderDependencyValidationException(ex);
-            }
-            catch (Xeption ex) when (ex.GetType().IsSubclassOf(typeof(ProviderDependencyException)))
-            {
-                throw new ProviderDependencyException(ex);
+                throw;
             }
             catch (Exception ex)
             {

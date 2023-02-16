@@ -6,7 +6,7 @@ using Standard.SPAL.Storage.EntityFramework.Extensions;
 
 namespace Standard.SPAL.Storage.EntityFramework
 {
-    public class EntityFrameworkStorageProvider : EFxceptionsContext, IStorageProvider
+    public partial class EntityFrameworkStorageProvider : EFxceptionsContext, IStorageProvider
     {
         public EntityFrameworkStorageProvider(DbContextOptions<EntityFrameworkStorageProvider> options)
             : base(options)
@@ -23,33 +23,39 @@ namespace Standard.SPAL.Storage.EntityFramework
 
         public override void Dispose() { }
 
-        public async ValueTask<T> InsertAsync<T>(T @object) where T : class
-        {
-            this.Entry(@object).State = EntityState.Added;
-            await this.SaveChangesAsync();
+        public ValueTask<T> InsertAsync<T>(T @object) where T : class =>
+            TryCatch(async () =>
+            {
+                this.Entry(@object).State = EntityState.Added;
+                await this.SaveChangesAsync();
 
-            return @object;
-        }
+                return @object;
+            });
 
-        public IQueryable<T> SelectAll<T>() where T : class => this.Set<T>();
+        public IQueryable<T> SelectAll<T>() where T : class => TryCatch(this.Set<T>);
 
-        public async ValueTask<T> SelectAsync<T>(params object[] @objectIds) where T : class =>
-            await this.FindAsync<T>(objectIds);
+        public ValueTask<T> SelectAsync<T>(params object[] @objectIds) where T : class =>
+            TryCatch<T>(async () =>
+            {
+                return await this.FindAsync<T>(objectIds);
+            });
 
-        public async ValueTask<T> UpdateAsync<T>(T @object) where T : class
-        {
-            this.Entry(@object).State = EntityState.Modified;
-            await this.SaveChangesAsync();
+        public ValueTask<T> UpdateAsync<T>(T @object) where T : class =>
+            TryCatch(async () =>
+            {
+                this.Entry(@object).State = EntityState.Modified;
+                await this.SaveChangesAsync();
 
-            return @object;
-        }
+                return @object;
+            });
 
-        public async ValueTask<T> DeleteAsync<T>(T @object) where T : class
-        {
-            this.Entry(@object).State = EntityState.Deleted;
-            await this.SaveChangesAsync();
+        public ValueTask<T> DeleteAsync<T>(T @object) where T : class =>
+            TryCatch(async () =>
+            {
+                this.Entry(@object).State = EntityState.Deleted;
+                await this.SaveChangesAsync();
 
-            return @object;
-        }
+                return @object;
+            });
     }
 }

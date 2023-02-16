@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SPAL.Demo.Brokers;
 using SPAL.Demo.Models.Students;
+using SPAL.Demo.Services.Foundations.Students;
 using Standard.SPAL.Storage.Abstractions;
 using Standard.SPAL.Storage.InMemory.Extensions;
 
@@ -18,7 +19,7 @@ public class Program
 
         IConfiguration configuration = configurationBuilder.Build();
         ServiceProvider serviceProvider = ConfigureServices(configuration);
-        var broker = serviceProvider.GetService<IStorageBroker>();
+        var studentService = serviceProvider.GetService<IStudentService>();
 
         Student newStudent = new Student
         {
@@ -28,11 +29,11 @@ public class Program
             LastName = "LastName"
         };
 
-        if (broker != null)
+        if (studentService != null)
         {
-            await broker.InsertStudentAsync(newStudent);
-            Student student = await broker.SelectStudentByIdAsync(newStudent.Id);
-            await broker.DeleteStudentAsync(student);
+            await studentService.AddStudentAsync(newStudent);
+            Student student = await studentService.RetrieveStudentByIdAsync(newStudent.Id);
+            await studentService.RemoveStudentByIdAsync(student.Id);
         }
     }
 
@@ -44,18 +45,15 @@ public class Program
                 builder.AddConsole();
             })
             .AddSingleton(configuration)
+            .AddTransient<IStudentService, StudentService>()
             .AddTransient<IStorageBroker, StorageBroker>()
             .AddTransient<IStorageAbstractProvider, StorageAbstractProvider>()
-#if DEBUG
             .UseInMemoryStorageProvider()
-#endif
-#if RELEASE
-            .UseEntityFrameworkStorageProvider(options =>
-                {
-                    options.UseSqlServer(configuration.GetConnectionString(name: "DefaultConnection"));
-                    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                })
-#endif
+            //.UseEntityFrameworkStorageProvider(options =>
+            //    {
+            //        options.UseSqlServer(configuration.GetConnectionString(name: "DefaultConnection"));
+            //        options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            //    })
             .BuildServiceProvider();
 
         return serviceProvider;

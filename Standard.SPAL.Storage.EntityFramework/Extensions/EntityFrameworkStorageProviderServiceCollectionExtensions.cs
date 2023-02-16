@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Standard.SPAL.Storage.Abstractions;
-using Standard.SPAL.Storage.EntityFramework;
 
-namespace Standard.SPAL.Storage.InMemory.Extensions
+namespace Standard.SPAL.Storage.EntityFramework.Extensions
 {
     public static class EntityFrameworkStorageProviderServiceCollectionExtensions
     {
