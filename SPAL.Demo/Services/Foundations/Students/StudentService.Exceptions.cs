@@ -28,6 +28,10 @@ namespace SPAL.Demo.Services.Foundations.Students
             {
                 throw CreateAndLogValidationException(notFoundStudentException);
             }
+            catch (ProviderValidationException providerValidationException)
+            {
+                throw CreateAndLogDependencyValidationException(providerValidationException);
+            }
             catch (ProviderDependencyValidationException providerDependencyValidationException)
             {
                 throw CreateAndLogDependencyValidationException(providerDependencyValidationException);
