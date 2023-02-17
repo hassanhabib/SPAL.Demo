@@ -47,7 +47,7 @@ public class Program
             .AddSingleton(configuration)
             .AddTransient<IStudentService, StudentService>()
             .AddTransient<IStorageBroker, StorageBroker>()
-            .AddTransient<IStorageAbstractProvider, StorageAbstractProvider>()
+            .AddTransient<IStorageSpal, StorageSpal>()
             .UseInMemoryStorageProvider()
             //.UseEntityFrameworkStorageProvider(options =>
             //    {

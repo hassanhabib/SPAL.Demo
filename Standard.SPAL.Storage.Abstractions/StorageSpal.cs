@@ -1,10 +1,10 @@
 ﻿namespace Standard.SPAL.Storage.Abstractions
 {
-    public partial class StorageAbstractProvider : IStorageAbstractProvider
+    public partial class StorageSpal : IStorageSpal
     {
         private readonly IStorageProvider provider;
 
-        public StorageAbstractProvider(IStorageProvider provider)
+        public StorageSpal(IStorageProvider provider)
         {
             this.provider = provider;
         }

@@ -4,9 +4,9 @@ namespace SPAL.Demo.Brokers
 {
     public partial class StorageBroker : IStorageBroker
     {
-        private readonly IStorageAbstractProvider storageAbstractProvider;
+        private readonly IStorageSpal storageAbstractProvider;
 
-        public StorageBroker(IStorageAbstractProvider storageAbstractProvider) =>
+        public StorageBroker(IStorageSpal storageAbstractProvider) =>
             this.storageAbstractProvider = storageAbstractProvider;
     }
 }

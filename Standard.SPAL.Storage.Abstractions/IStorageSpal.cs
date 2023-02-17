@@ -1,6 +1,6 @@
 ﻿namespace Standard.SPAL.Storage.Abstractions
 {
-    public interface IStorageAbstractProvider : IDisposable
+    public interface IStorageSpal : IDisposable
     {
         ValueTask<T> InsertAsync<T>(T @object) where T : class;
         IQueryable<T> SelectAll<T>() where T : class;

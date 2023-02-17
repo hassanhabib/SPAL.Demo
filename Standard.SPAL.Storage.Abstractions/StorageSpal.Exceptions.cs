@@ -2,7 +2,7 @@
 
 namespace Standard.SPAL.Storage.Abstractions
 {
-    public partial class StorageAbstractProvider
+    public partial class StorageSpal
     {
         private delegate ValueTask<T> ReturningObjectFunction<T>();
         private delegate IQueryable<T> ReturningObjectsFunction<T>();
