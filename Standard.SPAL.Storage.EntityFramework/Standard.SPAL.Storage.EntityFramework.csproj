@@ -1,28 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EFxceptions" Version="0.4.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
-    <PackageReference Include="Xeption" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SPAL.Demo.Models\SPAL.Demo.Models.csproj" />
     <ProjectReference Include="..\Standard.SPAL.Storage.Abstractions\Standard.SPAL.Storage.Abstractions.csproj" />
-    <ProjectReference Include="..\Standard.SPAL.Storage.EntityFramework\Standard.SPAL.Storage.EntityFramework.csproj" />
-    <ProjectReference Include="..\Standard.SPAL.Storage.InMemory\Standard.SPAL.Storage.InMemory.csproj" />
   </ItemGroup>
 
   <ItemGroup>
